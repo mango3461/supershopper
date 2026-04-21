@@ -1,11 +1,27 @@
-# .gitignore
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Environments
 .env
+.envrc
 .venv
 env/
 venv/
-.pytest_cache/
+ENV/
+
+# IDEs (VS Code, PyCharm, Cursor)
 .vscode/
 .idea/
+.cursorignore
+.cursorindexingignore
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs and databases
+*.log
+db.sqlite3
