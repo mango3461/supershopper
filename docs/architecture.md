@@ -220,7 +220,7 @@ backend/
 
 전체 워크플로우는 다음의 순서를 따릅니다.
 
-`Intent Analysis -> Search Strategy -> Retrieval -> Evidence Filtering -> Summarization -> Recommendation`
+`Intent Analysis -> Search Strategy -> Expert Signal Retrieval -> Candidate Generation -> Commerce Retrieval -> Evidence Filtering -> Summarization -> Recommendation`
 
 ### 1. Intent Analysis
 - 질문에서 `category`, `user_level`, `budget`, `constraints`를 추출합니다.
@@ -231,20 +231,30 @@ backend/
 - 추출된 의도를 바탕으로 검색 쿼리 3~5개를 생성합니다.
 - 사용자가 직접 검색어를 모르더라도 적절한 탐색 경로를 만듭니다.
 
-### 3. Retrieval
-- 어댑터를 통해 실제 시장 데이터를 수집합니다.
-- 상품 후보, 가격 정보, 리뷰/후기, 인기/트렌드 관련 데이터를 가져옵니다.
+### 3. Expert Signal Retrieval
+- 상품 자체가 아니라 추천, 가이드, 비교 콘텐츠를 먼저 수집합니다.
+- 전문가 또는 고수의 판단이 반영된 정보를 기반으로 후보군 생성을 준비합니다.
+- 단순 검색 결과가 아니라 추천 패턴 기반의 신호를 추출합니다.
+
+### 4. Candidate Generation
+- Expert Signal Retrieval 단계에서 수집된 정보를 바탕으로 추천되는 모델을 추출합니다.
+- 이 단계에서 실제 구매 후보군이 결정됩니다.
+- 이후 단계는 이 후보군을 검증하는 역할을 수행합니다.
+
+### 5. Commerce Retrieval
+- 이 단계는 후보군을 생성하는 것이 아니라, 이미 선택된 후보군의 구매 가능성을 검증하는 역할을 합니다.
+- 가격, 판매처, 배송, 후기 등 실제 구매에 필요한 정보를 수집합니다.
 - 최신성과 사실성은 이 단계가 책임집니다.
 
-### 4. Evidence Filtering
+### 6. Evidence Filtering
 - 중복/광고/노이즈를 제거하고 신뢰도 점수를 부여합니다.
 - 후속 요약과 추천에 사용할 정제된 근거 데이터를 만듭니다.
 
-### 5. Summarization
+### 7. Summarization
 - 도메인 지식이 없는 사용자를 위해 핵심 구매 기준을 요약합니다.
-- 검색 결과의 핵심 장단점을 초보자 관점에서 단순화합니다.
+- 수집된 근거의 핵심 장단점을 초보자 관점에서 단순화합니다.
 
-### 6. Recommendation
+### 8. Recommendation
 - 최종 후보 2~3개를 선정합니다.
 - 각 후보가 왜 적합한지 비교 근거와 함께 설명합니다.
 
