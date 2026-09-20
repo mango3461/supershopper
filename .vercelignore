@@ -1,0 +1,5 @@
+.env*
+.scratch/
+test-results/
+playwright-report/
+codex_handoff_bundle.zip
