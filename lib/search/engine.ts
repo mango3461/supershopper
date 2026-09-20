@@ -20,8 +20,23 @@ import { mapConcurrent, todayKorea, type SearchProvider } from './provider';
 export function createProvider(signal?: AbortSignal): SearchProvider {
   const provider =
     process.env.SEARCH_PROVIDER || (process.env.OPENAI_API_KEY ? 'openai' : 'everland');
-  if (provider === 'openai') return new OpenAIProvider(signal);
-  if (provider === 'gemini') return new GeminiProvider(signal);
+  const logSelection = (selectedProvider: string) =>
+    console.info(
+      JSON.stringify({
+        event: 'search_provider_selected',
+        provider: selectedProvider,
+        searchProviderConfigured: Boolean(process.env.SEARCH_PROVIDER),
+      }),
+    );
+  if (provider === 'openai') {
+    logSelection('openai');
+    return new OpenAIProvider(signal);
+  }
+  if (provider === 'gemini') {
+    logSelection('gemini');
+    return new GeminiProvider(signal);
+  }
+  if (provider === 'everland') logSelection('everland');
   if (provider !== 'everland') throw new Error('UNKNOWN_PROVIDER');
   return new EverlandProvider(signal);
 }
