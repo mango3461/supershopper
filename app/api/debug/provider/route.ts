@@ -9,6 +9,7 @@ export function GET() {
   return NextResponse.json(
     {
       provider,
+      searchProviderValue: process.env.SEARCH_PROVIDER ?? null,
       searchProviderConfigured: Boolean(process.env.SEARCH_PROVIDER),
       geminiKeyConfigured: Boolean(process.env.GEMINI_API_KEY),
       geminiModelConfigured: Boolean(process.env.GEMINI_MODEL),
